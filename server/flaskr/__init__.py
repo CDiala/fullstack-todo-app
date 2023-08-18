@@ -12,9 +12,18 @@ def create_app(test_config=None):
         return jsonify(to_do_list)
 
     '''Get specific todo item'''
-    @app.route("/items/<int:item_id>")
+    @app.route("/items/<item_id>")  # if param = <int:item_id>, no need to check if item_id is a string
     def get_item(item_id):
-        return jsonify(to_do_list[item_id])
+        try:
+            if not item_id.isnumeric():
+                return f"'{item_id}' is not a number. provide a number"
+
+            if int(item_id) >= len(to_do_list):
+                return f"No item found with id '{item_id}'"
+
+            return jsonify(to_do_list[int(item_id)])
+        except Exception as e:
+            return f"error found in '{item_id}'"
 
     '''Add new todo item'''
     @app.route("/items", methods=['POST'])
