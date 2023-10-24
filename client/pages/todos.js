@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TodoList from "../components/todolist";
 import TodoAddWidget from "../components/todowidget";
+import { baseUrl } from "../resources/base-url";
 
 const Todos = () => {
   const [todos, setTodos] = useState([]);
@@ -15,20 +16,13 @@ const Todos = () => {
   useEffect(() => {
     async function getTodoList(id) {
       // Call endpoint here
-      let response = await axios
-        .get("http://127.0.0.1:5000/items")
-        .then((res) => {
-          console.log("my complete response", res);
-          if ("data" in res) {
-            setTodos([...res["data"]]);
-          }
-        });
-      console.log("done", response);
-      console.log("todos after", todos);
+      let response = await axios.get(`${baseUrl}items`).then((res) => {
+        if ("data" in res) {
+          setTodos([...res["data"]]);
+        }
+      });
     }
     getTodoList();
-
-    // console.log("isComplete", isComplete);
   }, []);
 
   useEffect(() => {
@@ -43,7 +37,7 @@ const Todos = () => {
         };
 
         let response = await axios
-          .patch(`http://127.0.0.1:5000/items/${todo?.id}`, {
+          .patch(`${baseUrl}items/${todo?.id}`, {
             id: todo?.id,
             todo: updatedTodo,
           })
@@ -69,15 +63,13 @@ const Todos = () => {
 
   async function addNewItem(item) {
     // Call endpoint here
-    let response = await axios
-      .post("http://127.0.0.1:5000/items", item)
-      .then((res) => res);
+    let response = await axios.post(`${baseUrl}items`, item).then((res) => res);
 
     if (response["status"] === 200) {
       alert("record updated succesfully");
-      console.log("dataaaa", response["data"]["data"]);
+
       setTodos([response["data"]["data"], ...todos]);
-      console.log("new todos", ...todos);
+
       return [response["data"]["data"]];
     } else {
       alert(response["status"] + response["statusText"]);
@@ -86,28 +78,23 @@ const Todos = () => {
   }
 
   async function deleteTask(id) {
-    console.log(id, typeof id);
-    let response = await axios
-      .delete(`http://127.0.0.1:5000/items/${id}`)
-      .then((res) => {
-        if (res["status"] === 200) {
-          if ("data" in res) {
-            if ("data" in res["data"]) {
-              const deletedTodoId = res["data"]["data"];
-              console.log("deletedTodoId", deletedTodoId);
-              // return;
-              const oldTodoIndex = todos.findIndex(
-                (todo) => todo.id === deletedTodoId
-              );
-              let newTodoList = [...todos];
-              console.log("oldTodoIndex", oldTodoIndex);
-              // return;
-              newTodoList.splice(oldTodoIndex, 1);
-              setTodos(newTodoList);
-            }
+    let response = await axios.delete(`${baseUrl}items/${id}`).then((res) => {
+      if (res["status"] === 200) {
+        if ("data" in res) {
+          if ("data" in res["data"]) {
+            const deletedTodoId = res["data"]["data"];
+
+            const oldTodoIndex = todos.findIndex(
+              (todo) => todo.id === deletedTodoId
+            );
+            let newTodoList = [...todos];
+
+            newTodoList.splice(oldTodoIndex, 1);
+            setTodos(newTodoList);
           }
         }
-      });
+      }
+    });
   }
 
   function TodoApp() {

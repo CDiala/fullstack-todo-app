@@ -13,7 +13,6 @@ function TodoAddWidget({ updateItem }) {
       },
     };
     let updateResponse = await updateItem(payload);
-    console.log("update response", updateResponse);
     setItem("");
   }
 
