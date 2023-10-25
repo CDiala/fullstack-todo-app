@@ -78,29 +78,31 @@ const Todos = () => {
   }
 
   async function deleteTask(id) {
-    let response = await axios.delete(`${baseUrl}items/${id}`).then((res) => {
-      if (res["status"] === 200) {
-        if ("data" in res) {
-          if ("data" in res["data"]) {
-            const deletedTodoId = res["data"]["data"];
+    if (confirm("Are you sure you want to delete this todo item?") === true) {
+      let response = await axios.delete(`${baseUrl}items/${id}`).then((res) => {
+        if (res["status"] === 200) {
+          if ("data" in res) {
+            if ("data" in res["data"]) {
+              const deletedTodoId = res["data"]["data"];
 
-            const oldTodoIndex = todos.findIndex(
-              (todo) => todo.id === deletedTodoId
-            );
-            let newTodoList = [...todos];
+              const oldTodoIndex = todos.findIndex(
+                (todo) => todo.id === deletedTodoId
+              );
+              let newTodoList = [...todos];
 
-            newTodoList.splice(oldTodoIndex, 1);
-            setTodos(newTodoList);
+              newTodoList.splice(oldTodoIndex, 1);
+              setTodos(newTodoList);
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 
   function TodoApp() {
     return (
-      <div className="m-auto" style={{ maxWidth: "1200px" }}>
-        <h2>Todo App</h2>
+      <div className="m-auto" style={{ maxWidth: "1000px" }}>
+        <h2 className="text-center">Todo App</h2>
         <TodoAddWidget updateItem={addNewItem} />
         <TodoList
           todos={todos}
