@@ -26,6 +26,10 @@ function TodoList({ todos, setTodoUpdateInfo, setTodo, deleteTask }) {
                   </td>
                   <td className="p-2 d-flex justify-content-between gx-3">
                     <button
+                      style={{
+                        maxWidth: "150px",
+                        width: "100%",
+                      }}
                       onClick={() => {
                         setTodoUpdateInfo({
                           id: todo["id"],
@@ -33,11 +37,15 @@ function TodoList({ todos, setTodoUpdateInfo, setTodo, deleteTask }) {
                         });
                         setTodo({ ...todo });
                       }}
-                      className="btn btn-success text-nowrap"
+                      className={`btn ${
+                        todo["isCompleted"] ? "btn-success" : "btn-warning"
+                      }  text-nowrap`}
                     >
-                      Mark {todo["isCompleted"] ? "Incomplete" : "Complete"}
+                      {`Mark ${
+                        todo["isCompleted"] ? "Incomplete" : "Complete"
+                      }`}
                     </button>
-                    <button className="btn btn-warning text-nowrap">
+                    <button className="btn btn-info text-nowrap">
                       Edit Item
                     </button>
                     <button
