@@ -15,7 +15,7 @@ const Todos = () => {
 
   useEffect(() => {
     async function getTodoList(id) {
-      // Call endpoint here
+      // Get list of todos
       let response = await axios.get(`${baseUrl}items`).then((res) => {
         if ("data" in res) {
           setTodos([...res["data"]]);
@@ -26,6 +26,7 @@ const Todos = () => {
   }, []);
 
   useEffect(() => {
+    // Save updated todo item
     if (todo) {
       async function updateTodo() {
         const filtered_todo = todos.filter(
@@ -33,7 +34,9 @@ const Todos = () => {
         )[0];
         const updatedTodo = {
           ...filtered_todo,
-          isCompleted: todoUpdateInfo["isComplete"],
+          name: todo["name"],
+          isCompleted: todoUpdateInfo["isComplete"] ?? todo["isCompleted"],
+          dueDate: todo["dueDate"],
         };
 
         let response = await axios
@@ -52,6 +55,7 @@ const Todos = () => {
                   let newTodoList = [...todos];
                   newTodoList.splice(old_todo_index, 1, new_todo);
                   setTodos(newTodoList);
+                  alert("Record updated successfully.");
                 }
               }
             }
@@ -62,7 +66,7 @@ const Todos = () => {
   }, [todoUpdateInfo, todo]);
 
   async function addNewItem(item) {
-    // Call endpoint here
+    // Save new todo item
     let response = await axios.post(`${baseUrl}items`, item).then((res) => res);
 
     if (response["status"] === 200) {
@@ -78,6 +82,7 @@ const Todos = () => {
   }
 
   async function deleteTask(id) {
+    // Delete todo item
     if (confirm("Are you sure you want to delete this todo item?") === true) {
       let response = await axios.delete(`${baseUrl}items/${id}`).then((res) => {
         if (res["status"] === 200) {
@@ -109,8 +114,14 @@ const Todos = () => {
           setTodoUpdateInfo={setTodoUpdateInfo}
           setTodo={setTodo}
           deleteTask={deleteTask}
-          // isComplete={isComplete}
         />
+        {/* <div class="alert alert-dark" role="alert">
+          A simple dark alert with{" "}
+          <a href="#" class="alert-link">
+            an example link
+          </a>
+          . Give it a click if you like.
+        </div> */}
       </div>
     );
   }
