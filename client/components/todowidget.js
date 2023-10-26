@@ -17,7 +17,7 @@ function TodoAddWidget({ updateItem }) {
   }
 
   return (
-    <div className="d-flex" style={{ marginBottom: "20px" }}>
+    <div className="d-flex mb-2 gap-4" style={{ marginBottom: "20px" }}>
       <input
         className="form-control"
         type="text"
