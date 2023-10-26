@@ -1,0 +1,9 @@
+.todo_title:focus-visible {
+  outline: none;
+}
+
+.todo_title {
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 10px;
+}

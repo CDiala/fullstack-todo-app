@@ -1,6 +1,8 @@
+import { useState } from "react";
 import Todo from "./todo";
 
 function TodoList({ todos, setTodoUpdateInfo, setTodo, deleteTask }) {
+  const [editable, setEditable] = useState({ id: null, edit: false });
   return (
     <>
       {todos.length > 0 && (
@@ -8,56 +10,24 @@ function TodoList({ todos, setTodoUpdateInfo, setTodo, deleteTask }) {
           <thead className="text-center">
             <tr>
               <th>S/N</th>
-              <th>Item</th>
+              <th>Items</th>
+              <th>Due date</th>
               <th style={{ width: "500px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {todos.map((todo, index) => {
               return (
-                <tr key={index + 1} className="align-middle">
-                  <td className="p-2">{index + 1}</td>
-                  <td className="p-2">
-                    <Todo
-                      key={todo["id"]}
-                      name={todo["name"]}
-                      isCompleted={todo["isCompleted"]}
-                    />
-                  </td>
-                  <td className="p-2 d-flex justify-content-between gx-3">
-                    <button
-                      style={{
-                        maxWidth: "150px",
-                        width: "100%",
-                      }}
-                      onClick={() => {
-                        setTodoUpdateInfo({
-                          id: todo["id"],
-                          isComplete: !todo["isCompleted"],
-                        });
-                        setTodo({ ...todo });
-                      }}
-                      className={`btn ${
-                        todo["isCompleted"] ? "btn-success" : "btn-warning"
-                      }  text-nowrap`}
-                    >
-                      {`Mark ${
-                        todo["isCompleted"] ? "Incomplete" : "Complete"
-                      }`}
-                    </button>
-                    <button className="btn btn-info text-nowrap">
-                      Edit Item
-                    </button>
-                    <button
-                      onClick={() => {
-                        deleteTask(todo["id"]);
-                      }}
-                      className="btn btn-danger text-nowrap"
-                    >
-                      Delete Item
-                    </button>
-                  </td>
-                </tr>
+                <Todo
+                  key={index + 1}
+                  index={index}
+                  setTodoUpdateInfo={setTodoUpdateInfo}
+                  setTodo={setTodo}
+                  todo={todo}
+                  editable={editable}
+                  setEditable={setEditable}
+                  deleteTask={deleteTask}
+                />
               );
             })}
           </tbody>
