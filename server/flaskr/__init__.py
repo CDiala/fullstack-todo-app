@@ -11,71 +11,71 @@ def create_app():
             "id": 1,
             "name": "groceries",
             "isCompleted": True,
-            "dateCreated": "01-05-2023",
-            "dueDate": "05-05-2023"
+            "dateCreated": "2023-05-01",
+            "dueDate": "2023-05-05"
         },
         {
             "id": 2,
             "name": "workout",
             "isCompleted": False,
-            "dateCreated": "12-06-2023",
-            "dueDate": "19-06-2023"
+            "dateCreated": "2023-06-12",
+            "dueDate": "2023-06-19"
         },
         {
             "id": 3,
             "name": "cleaning",
             "isCompleted": True,
-            "dateCreated": "05-07-2023",
-            "dueDate": "12-07-2023"
+            "dateCreated": "2023-07-05",
+            "dueDate": "2023-07-12"
         },
         {
             "id": 4,
             "name": "study",
             "isCompleted": False,
-            "dateCreated": "22-08-2023",
-            "dueDate": "29-08-2023"
+            "dateCreated": "2023-08-22",
+            "dueDate": "2023-08-29"
         },
         {
             "id": 5,
             "name": "gardening",
             "isCompleted": True,
-            "dateCreated": "11-09-2023",
-            "dueDate": "18-09-2023"
+            "dateCreated": "2023-09-11",
+            "dueDate": "2023-09-18"
         },
         {
             "id": 6,
             "name": "painting",
             "isCompleted": False,
-            "dateCreated": "25-10-2023",
-            "dueDate": "01-11-2023"
+            "dateCreated": "2023-10-25",
+            "dueDate": "2023-11-01"
         },
         {
             "id": 7,
             "name": "reading",
             "isCompleted": True,
-            "dateCreated": "03-11-2023",
-            "dueDate": "10-11-2023"
+            "dateCreated": "2023-11-03",
+            "dueDate": "2023-11-10"
         },
         {
             "id": 8,
             "name": "cooking",
             "isCompleted": False,
-            "dateCreated": "15-12-2023",
-            "dueDate": "22-12-2023"
+            "dateCreated": "2023-12-15",
+            "dueDate": "2023-12-22"
         },
         {
             "id": 9,
             "name": "meditation",
             "isCompleted": True,
-            "dateCreated": "07-01-2024",
-            "dueDate": "14-01-2024"
+            "dateCreated": "2024-01-07",
+            "dueDate": "2024-01-14"
         },
         {
             "id": 10,
             "name": "coding",
             "isCompleted": False,
-            "dateCreated": "19-02-2024",
-            "dueDate": "26-02-2024"
+            "dateCreated": "2024-02-19",
+            "dueDate": "2024-02-26"
         }
     ]
 
